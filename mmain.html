@@ -104,6 +104,18 @@
     <div class="search-box">
       <input type="text" id="myInput" onkeyup="MyFunction()" class="form-control"
       placeholder="Введите название проекта">
+	    <form id="dataform" action="" method="POST">
+		    <div class="dates">
+			    <div class="form-row ml-auto" style="padding-top:10px;">
+				    <div-class="col-3"><a>C</a>
+					    <input type="text" data-date-format="dd/mm/yyyy" id="datepicker">
+					    </div>
+				    <div-class="col-3"><a>C</a>
+					    <input type="text" data-date-format="dd/mm/yyyy" id="datepicker1">
+					    </div>
+			    </div>
+			    </form>
+		    </div>	    
       <script>
       $(document).ready(function () {
     $("#myInput").on("keyup", function () {
