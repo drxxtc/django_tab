@@ -35,6 +35,14 @@ from .filters import PrF
 def project_list(request):
     f= PrF(request.GET, queryset=models.Product.objects.all())
     return render(request, 'main.html', {'filter':f})
+def datesfilter(request):
+    startdate=request.Get.get('from')
+    enddate=request.Get.get('to')
+    dates_Project=models.Project.objects.filter(data_lte=startdate).filter(data_gte=enddate)
+    #context = {'dates_Project': dates_Project}
+    return HttpResponse(serializers.serialize('json', dates_Project),
+                     content_type='application/json')
+
 '''from django_filters.views import FilterView
 from .filters import ProjFilt
 
