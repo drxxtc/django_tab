@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+{% load render_table from django_tables2 %}
+{% load static %}
+{% block title %}Мои проекты{% endblock %}
+{% block content %} 
+<div class="container">
+<!-- Вызов модального окна с проектом -->
+<div class="col-sm">
+<button type="button" class="btn btn-primary" data-toggle="modal"
+  data-target="#modal-example">Создать новый</button>
+</div> 
+      <!--Выпадающий список 
+   <div class="dropdown">
+   <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink"
+   data-toggle="ddropdown" aria-haspopup="true" aria-expanded="false">
+   <button  class="btn btn-secondary dropdown-toggle" type="button"
+     id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" 
+     aria-expanded="false" >Выпадающий список<span class="caret"></span>
+   </button>
+   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+     <li><a href="#"> ML</a></li>
+     <li><a class="dropdown-item"> PM</a></li>
+   </ul>
+   </div> 
+</div>-->
+
+<!-- Модальное окно 1 - создание нового проекта -->
+<div class="modal fade" id="modal-example" tabindex="-1"
+     role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- заголовок -->
+            <div class="modal-header">
+                <h3 class="modal-title">СОЗДАНИЕ НОВОГО ПРОЕКТА</h3>
+                <button type="button" 
+                  data-dismiss="modal" ><img src="{% static 'images/rem.png' %}">
+                </button>
+            </div>
+            <!-- содержимое -->
+            <div class="modal-body">
+              <div class="form-group">
+              <form method="POST" class="post-form">
+              {% csrf_token %}
+              {{ projectform }}
+                <button type="submit" class="btn btn-primary" >Сохранить<!--<img src="{% static 'images/save.png' %}" style="margin-left: 5% ;">--></button>
+               </form>
+              </div>
+                <div class="form-file">
+                <input type="file" class="form-file-input" id="customFile">
+                <label class="form-file-label" for="customFile"></label>
+              </div> 
+            </div>
+            <!-- подвал -->
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div> 
+<!-- Модальное окно 2 - Доступ к проектам --> 
+<div class="modal fade" id="modal-example2" tabindex="-1"
+     role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- заголовок -->
+            <div class="modal-header">
+                <h3 class="modal-title">ДОСТУП К ПРОЕКТУ</h3>
+                <button type="button" 
+                  data-dismiss="modal" ><img src="{% static 'images/rem.png' %}">
+                </button>
+            </div>
+            <!-- содержимое -->
+            <div class="modal-body">
+              <div class="form-group">
+              <form method="POST" class="post-form">
+              {% csrf_token %}
+              <a>Доступ предоставлен:</a>
+                <button type="submit" class="btn btn-primary" >ок</button>
+              </form>
+              </div>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<!-- Поисковая строка -->
+<div class="container search-table">
+    <div class="search-box ml-auto">
+      <input type="text" id="myInput" onkeyup="MyFunction()" class="form-control"
+      placeholder="Введите название проекта">
+      <form id="dataform" action="" method="POST">
+      <div class="dates">
+      <div class="form-row ml-auto" style="padding-top:10px;">
+      <div class="col-3"><a>С </a>
+     <input type="text" data-date-format="dd/mm/yyyy" id="datepicker" >
+     </div>
+    <div class="col-3"><a>По</a>
+     <input type="text" data-date-format="dd/mm/yyyy" id="datepicker1">
+     </div>
+     </div>
+     </form>
+     </div>
+      <script>
+      $(document).ready(function () {
+    $("#myInput").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+	checkUpdates();
+	
+});
+      </script>
+    </div>
+    
+
+   <!--Фильтрация 
+   <div>
+     <br>
+     <form action="" method="GET">
+     {{filter.form}}
+     <button type="submit">По алфавиту</button>
+     <button type="submit">Автор</button>
+     <button type="submit">Тема</button> -->
+
+          
+
+
+    
+    
+
+<script type="text/javascript">
+   $('#datepicker').datepicker({
+           weekStart:1,
+           daysOfWeekHighlighted: "6,0",
+           autoclose: true,
+           todayHighlight: true,
+           });
+    $('#datepicker').datepicker("setDate", newDate());
+    </script> 
+    <script type="text/javascript">
+   $('#datepicker1').datepicker({
+           weekStart:1,
+           daysOfWeekHighlighted: "6,0",
+           autoclose: true,
+           todayHighlight: true,
+           });
+    $('#datepicker1').datepicker("setDate", newDate());
+    </script>
+    
+
+     
+    
+     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+         <li><a href="#"> ML</a></li>
+         <li><a class="dropdown-item"> PM</a></li>
+     </ul>
+     </div>
+     </form>
+     <br>
+<!--Таблица проектов -->
+    <div class="col-md-12">
+      <div class="search-list">
+         <table class="table table-bordsered table-hover" id="myTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Имя проекта</th>
+              <th>Статус</th>
+              <th>Дата создания</th>
+              <th>Входные данные</th>
+              <th>Тема</th>
+              <th>Автор</th>
+              <th>Кнопка</th>
+            </tr>
+          </thead>
+          <tbody>
+        {% for prj in projects %}
+            <tr>
+              <td>{{ prj.id }}</td>
+              <td>{{ prj.project_name }}</td>
+              <td>{{ prj.status }}</td>
+              <td>{{ prj.created_at }}</td>
+              <td>{{ prj.typep }} </td> 
+              <td>{{ prj.tema }} </td>
+              <td>{{ prj.author }} </td>
+              <td><div class="col-auto">
+                  <button type="button" class="btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#modal-example2">Доступ</button>
+              </div> </td>
+            </tr>
+         {% endfor %}  
+          </tbody>
+        </table>
+      </div>
+    </div>
+    </div>
+ <script src="{% static 'js/main.js' %}"></script> 
+
+<!--
+ <form method ="get">
+    {{ filter.form.as_p }}
+    <input type="submit"/>
+</form>
+{% for obj in filter.qs %}
+    {{ obj.name}} <br />
+    {% endfor %} -->
+ {% endblock %}
+
+<!--
+ <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+ {{ form.date }}
+  <input type="text" class="form-control datetimepicker-input" 
+  data-target="#datetimepicker1"/>
+  <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+  </div>
+  </div>
+  <script>
+  $(function() {
+          $("#datetimepicker1").datetimepicker({
+                  format: 'DD/MM/YYYY HH:mm,
+                  '});
+          });
+  </script>  -->
+<!--
+ <div class="col-auto">
+           <div class="dropdown">
+       <button class="btn btn-primary dropdown-toggle" type="button" 
+       data-toggle="dropdown">Тема Проекта
+       <span class="caret"></span></button>
+       <ul class="dropdown-menu ml-auto">
+          <input class="form-control" id="Input1" type="text"
+          placeholder="Search">
+          <li><a>HT</a></li>
+          <li><a>TT</a></li>
+       </ul>
+   </div>
+   </div>
+      <div class="col-auto">
+     <input class="search-button" type="button" value="Search">   
+     </div>
+-->
