@@ -1,0 +1,66 @@
+.navbar{
+    background-image: url("../images/fon.png");
+    background-repeat: no-repeat;
+    background-size: 100%;  
+}
+.navbar-brand{
+    color: #fff;
+    margin: 5px;
+    font-size: 48px;
+}
+.navbar-nav{
+    color: #fff;
+}
+.nav-link{
+    margin-right: 0em !important;
+    color: #05386B;
+   }
+
+.navbar-nav{
+    
+    padding-right: 0px;
+    color: #05386B;
+    font-size: 28px;
+    
+}
+.navbar-collapse nav-link-1{
+  color: #fff;
+}
+html body{
+    background-color: #e9f2fa;
+}
+nav .justify-content-end{
+    list-style-type: none;
+    margin:0px;
+    margin-right: 0%;
+    
+}
+
+.namehypo{
+    margin-top: 8%;
+    color: #05386B;
+}
+.album .badge-pill{
+    background-color:  #e9f2fa;
+    color: #05386B;
+    font-size: 18px;
+    display:flex;
+    text-align: justify;
+    
+}
+.album .badge-pill-kk{
+    background-color:  #e9f2fa;
+    color: #05386B;
+    height: 200px;
+    width: 100px;
+    font-size: 18px;
+}
+.text-center{
+    color: #05386B;
+    
+    
+}
+.btn{
+    background:linear-gradient(180deg, #8EE4AF 0%, #379683 100%); ;
+    color: #f5f5;
+}
