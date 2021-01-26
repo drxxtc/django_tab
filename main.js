@@ -135,8 +135,6 @@ function SendDateEnd()
 			{
 				$("#datapicker1").keyup();
 			}
-                    }
-
 			catch{}
 		}
 	};
