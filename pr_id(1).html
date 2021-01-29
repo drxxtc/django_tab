@@ -1,0 +1,292 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %} 
+<link rel="stylesheet" type="text/css" href="{% static 'css/pr_id.css' %}">
+    <div class="container-fluid">
+        <div class="row">   
+         <div class="col-sm">
+          <div class="text-center"><button type="button" data-toggle="modal"
+          data-target="#modal-example" style="margin-right: 0%;" 
+          class="btn btn-primary active" align-text="center">Выбрать данные</button></div>
+         </div>
+            <div class="col-6">
+                 <h1 class="namehypo" align="center" style="margin-top: 0%;">Проект "Name" <img src="{% static 'images/project-management.svg' %}" width="40"></h1>
+            </div>
+            <div class="col-sm">
+            </div>
+        </div>
+    </div>
+ <div class="modal fade" id="modal-example" tabindex="-1"
+     role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- заголовок -->
+            <div class="modal-header">
+                <h3 class="modal-title">ВЫБОР ДАННЫХ ДЛЯ ОБРАБОТКИ</h3>
+                <button type="button" 
+                  data-dismiss="modal" ><img src="{% static 'images/rem.png' %}">
+                </button>
+            </div>
+            <!-- содержимое -->
+            <div class="modal-body">
+            <div class="form-group">
+              <form method="POST" class="post-form">
+              {% csrf_token %}
+              <!-- {{ sliceform }} -->
+              <div class="row">
+                <p><a>Укажите имя листа:</a></p>
+                </div>
+               </form>
+              </div>
+              <div class="row">
+              <form method="post" enctype="multipart/form-data">
+               <div class="form-file">
+                <input type="file" name="myfile" class="form-file-input" id="customFile">
+                <label class="form-file-label" for="customFile"></label>
+                </div>
+                <div class="row">
+             <button type="submit" class="btn btn-primary" >Сохранить</button>
+            </div>
+                </div>
+              </form>
+            </div>    
+        </div>
+    </div>
+</div> 
+<!--Модальное окно Кластеризация-->
+<div class="modal fade" id="modal-example1" tabindex="-1"
+     role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- заголовок -->
+            <div class="modal-header">
+                <h3 class="modal-title">КЛАСТЕРИЗАЦИЯ</h3>
+                <button type="button" 
+                  data-dismiss="modal" ><img src="{% static 'images/rem.png' %}">
+                </button>
+            </div>
+            <!-- содержимое -->
+            <div class="modal-body">
+            <div class="form-group">
+              <form method="POST" class="post-form">
+              {% csrf_token %}
+              <!-- {{ sliceform }} -->
+              <div class="row">
+                <p><a>Укажите имя столбца:</a></p>
+                </div>
+                <div class="row">
+                <p><a>Введите кол-во кластеров:</a></p>
+                </div>
+               </form>
+              </div>
+           
+                <div class="row">
+             <button type="submit" class="btn btn-primary" >GO</button>
+            </div>
+                </div>
+              </form>
+            </div>    
+        </div>
+    </div>
+</div> 
+<!--Модальное окно Классификация-->
+<div class="modal fade" id="modal-example2" tabindex="-1"
+     role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- заголовок -->
+            <div class="modal-header">
+                <h3 class="modal-title">КЛАССИФИКАЦИЯ</h3>
+                <button type="button" 
+                  data-dismiss="modal" ><img src="{% static 'images/rem.png' %}">
+                </button>
+            </div>
+            <!-- содержимое -->
+            <div class="modal-body">
+            <div class="form-group">
+              <form method="POST" class="post-form">
+              {% csrf_token %}
+              <!-- {{ sliceform }} -->
+              <div class="row">
+                <p><a>Укажите маркер:</a></p>
+                </div>
+                <div class="row">
+                <p><a>Введите кол-во кластеров:</a></p>
+                </div>
+               </form>
+              </div>
+           
+                <div class="row">
+             <button type="submit" class="btn btn-primary" >GO</button>
+            </div>
+                </div>
+              </form>
+            </div>    
+        </div>
+    </div>
+</div> 
+<!--About Project -->
+    <div class="album  pull-right py-4 bg-light"> <!-- padding-top/button внутренний отступ, 5- значение отступа -->
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+                <p></p><span class="badge-pill badge-secondary">ID: {{ projects.id }}</span></p>
+                <p><span class="badge-pill badge-secondary">Статус: {{ projects.status }}</span></p>
+                <p><span class="badge-pill badge-secondary">Дата создания: {{ projects.created_at }} 15.12.2020</span></p>
+                <p><span class="badge-pill badge-secondary">Размер: 512 мб</span></p>
+            </div>
+            <div class="col-sm">
+         <table class="table table-bordsered table-hover" id="myTable">
+            <thead>
+            <tr>
+              <th>Статистика</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>Классификация</td>
+             
+            </tr>
+            <tr>
+             <td>Классификация</td>
+             </tr>
+            </tbody>
+        </table>
+        </div>
+                <h3 class="text-center">Статистика</h3>
+                <ul>
+                    <li><a> Основные статистические данные</a></li>
+                    <li><a>Классификация</a></li>
+                    <li><a>Категоризация</a></li>
+                </ul>
+                <div class="text-center"><button type="button" class="btn btn-primary active" align-text="center" data-toggle="modal"
+          data-target="#modal-example1">Перейти</button></div>
+            </div>
+            <div class="col-md-4">
+                <h3 class="text-center">Редактирование данных</h3>
+                <ul>
+                    <li><a>Изменение стурктуры</li>
+                    <li><a>Сортировка</a></li>
+                    <li><a style="color:#fff;"> _ </a></li> 
+                </ul>
+                <div class="text-center"><button type="button" class="btn btn-primary active">Перейти</button></div>
+            </div>
+          </div>
+           <!-- Вторая колонка -->
+          <div class="row">
+            <div class="col-md-4">
+                <p><span class="badge-pill badge-secondary">Тип файлов:{{ projects.typep}} html</span></p>
+                <p><span class="badge-pill badge-secondary">{{project.author }}Размер:</span></p>
+                <!--<p><span class="badge-pill badge-secondary">Последнее обновление: 25.01.2020</span></p> -->
+                <p><span class="badge-pill badge-secondary" style="position: relative;">Описание проекта:
+                <div class="input-group">
+                <input type="text" class="form-control" id="descript" placeholder="Проект">
+            </div></span></p>
+            </div>
+            <div class="col-md-4">
+                <h3 class="text-center">Отчет</h3>
+                <ul>
+                    <li><a >Журнал действий</a></li>
+                    <li><a>Визуализация</a></li>
+                    <li><a>Отчет по проекту</a></li>
+                </ul>
+                <div class="text-center"><button type="button" class="btn btn-primary active" data-toggle="modal"
+          data-target="#modal-example2">Перейти</button></div>
+            </div>
+                
+                
+            <div class="col-md-4">
+               <h3 class="text-center">Прогнозирование</h3>
+                <ul>
+                    <li><a>Предсказание значения элементов</a></li>
+                    <li><a  style="color:#fff;">_</a></li>
+                    <li><a style="color:#fff;">_</a></li>
+                </ul>
+                <div class="text-center"><button type="button" class="btn btn-primary active">Перейти</button></div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="panel-heading">
+            <span class="glyphicon glyphicon-comment"></span>
+            <h3 class="namehypo"  align="center">Comments <img src="{% static 'images/speech-bubble.svg' %}" width="30" height="30"></h3>
+        </div>
+            <div class="panel panel-default widget">
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-1">
+                                    <img src="{% static 'images/80.png' %}" class="img-circle img-responsive" alt="" /></div>
+                                <div class="col-1">
+                                    <div>
+                                        <div class="mic-info">
+                                            By: <a href="#">Name of user1</a> on 26 Jan 2021
+                                        </div>
+                                    </div>
+                                    <div class="comment-text">
+                                        Awesome design
+                                    </div>
+                                  <!-- 
+                                  <div class="action">
+                                        <button type="button" class="btn btn-primary btn-xs" title="Edit">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-xs" title="Delete">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            <a class='btn btn-primary' href='#'></a><button class='btn btn-primary'><i class='glyphicon glyphicon-plus'></i></button>
+                                        </button>
+                                    </div>
+                                    -->
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-1">
+                                    <img src="{% static 'images/80.png' %}"  class="img-circle img-responsive" alt="" /></div>
+                                <div class="col-1">
+                                    <div> 
+                                        <div class="mic-info">
+                                            By: <a href="#">Name of user</a> on 26 Nov 2020
+                                        </div>
+                                    </div>
+                                    <div class="comment-text-left">ML</div>
+                                    <!--
+                                    <div class="action">
+                                        <button type="button" class="btn btn-primary btn-xs" title="Edit">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-xs" title="Delete">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </div>
+                                    -->
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="container">
+        <div class="row">  
+            <div class="col-md-12 mr-auto">
+         
+                <textarea class="form-control" rows="2" placeholder="Добавьте Ваш комментарий"></textarea>
+                <div class="mar-top clearfix">
+                    <button class="btn btn-sm btn-primary pull-right" type="submit"> Добавить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ {% endblock %}
+ <!--
+ </body>
+</html> 
+-->
