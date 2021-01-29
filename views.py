@@ -14,6 +14,7 @@ def main(request):
     return render(request, 'main.html', 
     {'Project.status': 'ready','projectform': ProjectForm,
      'projects': models.Project.objects.all()})
+    
 #обновление страницы
 def getList(request):
 	projects = models.Project.objects.all()
@@ -21,7 +22,7 @@ def getList(request):
                      content_type='application/json')
 #просто возращение страницы...    
 def proj(request):
-    return render(request,'myproject.html', {'proj': models.Project.objects.all()})    
+    return render(request,'pr_id.html')  
 #метод tables2 
 from django_tables2 import SingleTableView#, SingleTableMixin 
 from .tables import   ProjTab
@@ -38,11 +39,30 @@ def project_list(request):
 def datesfilter(request):
     startdate=request.Get.get('from')
     enddate=request.Get.get('to')
-    dates_Project=models.Project.objects.filter(data_lte=startdate).filter(data_gte=enddate)
+    dates_Project=models.Project.objects.filter(data_lt=startdate).filter(data_gt=enddate)
     #context = {'dates_Project': dates_Project}
     return HttpResponse(serializers.serialize('json', dates_Project),
                      content_type='application/json')
-
+    
+#from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+def simple_upload(request):
+    if request.method=='POST' and request.files['myfile']:
+        myfile=request.FILES['myfile']
+        fs=FileSystemStorage()
+        filename=fs.save(myfile.name, myfile)
+        uploaded_file_url=fs.url(filename)
+        return render(request, 'main.html', {'uploaded_file_url': uploaded_file_url
+                                             })
+    return render(request, 'main.html')
+        
+'''Оставить комментарий def leave_comment(request, project_id):
+    try:
+        p=models.Project.objects.get(id=project_id)
+    except:
+        raise Http404("Проект не найден")
+    p.project
+'''
 '''from django_filters.views import FilterView
 from .filters import ProjFilt
 
@@ -61,39 +81,3 @@ class FilterView(SingleTableMixin, FilterView):
 ''' 
   
     
-    
-    
-    
-    
-    
-'''def project_list(request):
-    filter= models.ProjectFilter(request.GET, queryset = models.Project.objects.all())
-    return render(request, 'main.html', {'filter': filter})'''
-#фильтрация
-'''def filt(request):
-    queryset.filter(created_at__date__range=(request.POST, request.POST))
-    return 0
-'''    
-#class ProjectListView(generics.ListAPIView):
-    #serializer_class=ProjectListSerializer
-#    filter_backends=(DjangoFilterBackend,)
-
-'''def statustime(request):s
-    proj=Project()
-    proj.status='ready'
-    proj.save()
-    return render(request, 'main.html', 
-    {'Project.status': 'ready','projectform': ProjectForm,
-     'projects': models.Project.objects.all()})
-    
-from datetime import  datetime, timedelta
-a= datetime.now()+timedelta(seconds=3)
-if a == Project.created_at:'''
-
-'''def post(self, request):
-    pr_fr=ProjectForm(request.POST)
-    if pr_fr.is_valid():
-        pr_fr.save()
-    response = {"data": "goes here"}
-    return HttpResponse(json.dumps(response), 
-    content_type='application/json')'''
