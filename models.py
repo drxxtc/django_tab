@@ -32,3 +32,19 @@ class ProjectFilter(django_filters.FilterSet):
         model = Project
         fields=['created_at','tema', 'typep']
         
+class Project_str(models.Model):
+    project=models.ForeignKey(Project, on_delete= models.CASCADE)
+    #size=models.FileField(allow_empty_file= False)
+
+class Comment(models.Model):
+    project=models.ForeignKey(Project, on_delete= models.CASCADE)
+    author_name=models.CharField('имя автора', max_length=100)
+    comment_text=models.TextField('текст комментария')
+    def __str__(self):
+        return self.project_name
+    class Meta:
+        verbose_name='Комментарий к проекту'
+        verbose_name_plural='Комментарии к проекту'
+    
+        
+
