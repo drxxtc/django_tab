@@ -45,10 +45,10 @@
                 <button type="submit" class="btn btn-primary" >Сохранить<!--<img src="{% static 'images/save.png' %}" style="margin-left: 5% ;">--></button>
                </form>
               </div>
-                <div class="form-file">
-                <input type="file" class="form-file-input" id="customFile">
+               <div class="form-file">
+                <input type="file" name="myfile" class="form-file-input" id="customFile">
                 <label class="form-file-label" for="customFile"></label>
-              </div> 
+               </div>  
             </div>
             <!-- подвал -->
             <div class="modal-footer">
@@ -74,7 +74,8 @@
               <form method="POST" class="post-form">
               {% csrf_token %}
               <a>Доступ предоставлен:</a>
-                <button type="submit" class="btn btn-primary" >ок</button>
+              <button type="submit"  class="btn btn-primary"
+                  data-dismiss="modal" >ок</button>
               </form>
               </div>
             </div>
@@ -84,23 +85,41 @@
 
 <!-- Поисковая строка -->
 <div class="container search-table">
-    <div class="search-box ml-auto">
+  <div class="col-md-12">
+    <div class="sea ">
       <input type="text" id="myInput" onkeyup="MyFunction()" class="form-control"
-      placeholder="Введите название проекта">
-      <form id="dataform" action="" method="POST">
-      <div class="dates">
-      <div class="form-row ml-auto" style="padding-top:10px;">
-      <div class="col-3"><a>С </a>
-     <input type="text" data-date-format="dd/mm/yyyy" id="datepicker" >
+        placeholder="Введите данные проекта">
+        <div class="fil">
+          <form id="dataform" action="" method="GET">
+            <div class="col">
+              <div class=" dates">
+                <div class="form-row ml-auto" style="padding-top:10px;">
+                <div class="col">
+                 <a>F:</a>
+                <input type="text" data-date-format="dd/mm/yyyy" id="datepicker" >
+                  </div>
+                  <div class="col">
+                  <a>T:</a>
+                    <input type="text" data-date-format="dd/mm/yyyy" id="datepicker1">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+<!-- Выбор статуса галочкой -->
+     <div class="form-check">    
+         <div class="col">
+            <input type="checkbox" class="form-check-input" id="check1">
+            <label class="form-check-label" for="check1">Ready</label>
+         </div>
+         <div class="col">
+            <input type="checkbox" class="form-check-input" id="check2">
+            <label class="form-check-label" for="check2">In progress</label>
+         </div>
+       </div>
      </div>
-    <div class="col-3"><a>По</a>
-     <input type="text" data-date-format="dd/mm/yyyy" id="datepicker1">
-     </div>
-     </div>
-	      </div>
-     </form>
-     </div>
-      <script>
+<!-- Поиск по таблице по названию -->
+     <script>
       $(document).ready(function () {
     $("#myInput").on("keyup", function () {
         var value = $(this).val().toLowerCase();
@@ -111,26 +130,9 @@
 	checkUpdates();
 	
 });
-      </script>
-    </div>
-    
-
-   <!--Фильтрация 
-   <div>
-     <br>
-     <form action="" method="GET">
-     {{filter.form}}
-     <button type="submit">По алфавиту</button>
-     <button type="submit">Автор</button>
-     <button type="submit">Тема</button> -->
-
-          
-
-
-    
-    
-
-<script type="text/javascript">
+     </script>
+<!-- Календарь -->
+     <script type="text/javascript">
    $('#datepicker').datepicker({
            weekStart:1,
            daysOfWeekHighlighted: "6,0",
@@ -138,8 +140,8 @@
            todayHighlight: true,
            });
     $('#datepicker').datepicker("setDate", newDate());
-    </script> 
-    <script type="text/javascript">
+      </script> 
+      <script type="text/javascript">
    $('#datepicker1').datepicker({
            weekStart:1,
            daysOfWeekHighlighted: "6,0",
@@ -147,23 +149,16 @@
            todayHighlight: true,
            });
     $('#datepicker1').datepicker("setDate", newDate());
-    </script>
-    
-
+      </script> 
+    </div> 
+    </div>
      
-    
-     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-         <li><a href="#"> ML</a></li>
-         <li><a class="dropdown-item"> PM</a></li>
-     </ul>
-     </div>
-     </form>
-     <br>
+ 
 <!--Таблица проектов -->
     <div class="col-md-12">
       <div class="search-list">
          <table class="table table-bordsered table-hover" id="myTable">
-          <thead>
+            <thead>
             <tr>
               <th>ID</th>
               <th>Имя проекта</th>
@@ -173,13 +168,13 @@
               <th>Тема</th>
               <th>Автор</th>
               <th>Кнопка</th>
-            </tr>
-          </thead>
-          <tbody>
+             </tr>
+             </thead>
+        <tbody>
         {% for prj in projects %}
             <tr>
               <td>{{ prj.id }}</td>
-              <td>{{ prj.project_name }}</td>
+              <td><a href="{% url 'progmod:detail' prj.id %}">{{ prj.project_name }}</a></td>
               <td>{{ prj.status }}</td>
               <td>{{ prj.created_at }}</td>
               <td>{{ prj.typep }} </td> 
@@ -196,8 +191,10 @@
         </table>
       </div>
     </div>
-    </div>
+ 
+ </div>
  <script src="{% static 'js/main.js' %}"></script> 
+  {% endblock %}
 
 <!--
  <form method ="get">
@@ -207,7 +204,7 @@
 {% for obj in filter.qs %}
     {{ obj.name}} <br />
     {% endfor %} -->
- {% endblock %}
+
 
 <!--
  <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
@@ -242,4 +239,14 @@
       <div class="col-auto">
      <input class="search-button" type="button" value="Search">   
      </div>
+-->
+<!-- 
+   
+     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+         <li><a href="#"> ML</a></li>
+         <li><a class="dropdown-item"> PM</a></li>
+     </ul>
+     </div>
+     </form>
+     <br>
 -->
