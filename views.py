@@ -1,16 +1,16 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404,HttpResponseRedirect
 from django.core import serializers
 from . import models
 from .forms import ProjectForm
+from django.urls import reverse
 
 #добавление проекта в таблицу
 def main(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST)
-        form.save()
-       
-        return redirect('main')
+        form.save()       
+        return redirect('progmod:main')
     return render(request, 'main.html', 
     {'Project.status': 'ready','projectform': ProjectForm,
      'projects': models.Project.objects.all()})
@@ -52,17 +52,31 @@ def simple_upload(request):
         fs=FileSystemStorage()
         filename=fs.save(myfile.name, myfile)
         uploaded_file_url=fs.url(filename)
-        return render(request, 'main.html', {'uploaded_file_url': uploaded_file_url
-                                             })
-    return render(request, 'main.html')
-        
-'''Оставить комментарий def leave_comment(request, project_id):
+        return render(request, 'pr_id.html', {'uploaded_file_url': uploaded_file_url})
+    return render(request, 'pr_id.html')
+#переход на страницу проекта
+def detail(request, project_id):
     try:
-        p=models.Project.objects.get(id=project_id)
+         p=models.Project.objects.get(id=project_id)
+    except:
+        raise Http404('Проект не найден')
+    comment_list= p.comment_set.order_by('-id')[:10]
+    return render(request, 'pr_id.html',{'project':p, 'comment_list': comment_list })
+
+from pathlib import Path
+def typedownload(request, file):
+    tip=Path(file).suffix[1:].lower()
+    return render(request, 'pr_id.html', {'tip': tip })
+
+#Оставить комментарий 
+def leave_comment(request, project_id):
+    try:
+        p=models.Project.objects.get(id = project_id)
     except:
         raise Http404("Проект не найден")
-    p.project
-'''
+    p.comment_set.create(author_name = request.POST['name'], comment_text=request.POST['text'])
+    return HttpResponseRedirect(reverse('progmod:detail', args=(p.id, )) )
+
 '''from django_filters.views import FilterView
 from .filters import ProjFilt
 
@@ -81,3 +95,22 @@ class FilterView(SingleTableMixin, FilterView):
 ''' 
   
     
+    
+    
+    
+    
+    
+'''def project_list(request):
+    filter= models.ProjectFilter(request.GET, queryset = models.Project.objects.all())
+    return render(request, 'main.html', {'filter': filter})'''
+#фильтрация
+'''def filt(request):
+    queryset.filter(created_at__date__range=(request.POST, request.POST))
+    return 0
+'''    
+#class ProjectListView(generics.ListAPIView):
+    #serializer_class=ProjectListSerializer
+#    filter_backends=(DjangoFilterBackend,)
+
+
+                
