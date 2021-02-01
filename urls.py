@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
 from django.urls import path
 #from django.contrib.auth import views as views_auth
-from .views import main, getList, ListView, project_list, proj#, FilterView list, project_list
+from .views import main, getList, ListView, project_list, proj, detail, leave_comment#, FilterView list, project_list
 from django.conf import settings
 from django.conf.urls.static import static
-
+app_name="progmod"
 urlpatterns = [
   path('main', main, name='main'),
   path('list', getList, name='getList'),
   path('table', ListView.as_view()),
   path('pr_list', project_list),
   path('proj', proj),
-     #<int: project_id >
+  path('<int:project_id>/', detail, name='detail'),
+  path('<int:project_id>/leave_comment/', leave_comment, name='leave_comment')
+  
     
   #path('json/datesfilter', datesfilter)
   #path('filter', FilterView.as_view()),
@@ -19,7 +21,7 @@ urlpatterns = [
   #path('list', list, name='list')
   #path('project_list', project_list, name='project_list')
   #path('/filt', getList, name='filt')
-  #path('statustime', statustime, statustime)
+
 ]
 
 if settings.DEBUG:
