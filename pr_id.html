@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% block title %}Проект{% endblock %}
 {% block content %} 
 <link rel="stylesheet" type="text/css" href="{% static 'css/pr_id.css' %}">
     <div class="container-fluid">
@@ -11,7 +11,7 @@
           class="btn btn-primary active" align-text="center">Выбрать данные</button></div>
          </div>
             <div class="col-6">
-                 <h1 class="namehypo" align="center" style="margin-top: 0%;">Проект "Name" <img src="{% static 'images/project-management.svg' %}" width="40"></h1>
+                 <h1 class="namehypo" align="center" style="margin-top: 0%;">Проект "{{project.project_name}}" <img src="{% static 'images/project-management.svg' %}" width="40"></h1>
             </div>
             <div class="col-sm">
             </div>
@@ -39,17 +39,14 @@
                 </div>
                </form>
               </div>
-              <div class="row">
               <form method="post" enctype="multipart/form-data">
-               <div class="form-file">
+               {% csrf_token %}
                 <input type="file" name="myfile" class="form-file-input" id="customFile">
                 <label class="form-file-label" for="customFile"></label>
-                </div>
-                <div class="row">
-             <button type="submit" class="btn btn-primary" >Сохранить</button>
-            </div>
-                </div>
+             <button type="submit" class="btn btn-primary" >Сохранить</button>    
               </form>
+      
+             
             </div>    
         </div>
     </div>
@@ -131,38 +128,28 @@
         <div class="container">
           <div class="row">
             <div class="col-md-4">
-                <p></p><span class="badge-pill badge-secondary">ID: {{ projects.id }}</span></p>
-                <p><span class="badge-pill badge-secondary">Статус: {{ projects.status }}</span></p>
-                <p><span class="badge-pill badge-secondary">Дата создания: {{ projects.created_at }} 15.12.2020</span></p>
-                <p><span class="badge-pill badge-secondary">Размер: 512 мб</span></p>
+                <p></p><span class="badge-pill badge-secondary">ID: {{ project.id }}</span></p>
+                <p><span class="badge-pill badge-secondary">Статус: {{ project.status }}</span></p>
+                <p><span class="badge-pill badge-secondary">Дата создания: {{ project.created_at }} </span></p>
+                {% for file in logos %}
+                      <p><a class="{{ file.css_class }}"</a>TypeType</p>
+                {% endfor %}
+                <p><span class="badge-pill badge-secondary">Путь: {{ project.file }}</span></p>
             </div>
-            <div class="col-sm">
-         <table class="table table-bordsered table-hover" id="myTable">
-            <thead>
-            <tr>
-              <th>Статистика</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>Классификация</td>
-             
-            </tr>
-            <tr>
-             <td>Классификация</td>
-             </tr>
-            </tbody>
-        </table>
-        </div>
+          
+        
+               <div class="col-md-4">
                 <h3 class="text-center">Статистика</h3>
                 <ul>
+             
                     <li><a> Основные статистические данные</a></li>
                     <li><a>Классификация</a></li>
                     <li><a>Категоризация</a></li>
                 </ul>
                 <div class="text-center"><button type="button" class="btn btn-primary active" align-text="center" data-toggle="modal"
           data-target="#modal-example1">Перейти</button></div>
-            </div>
+          </div>
+            
             <div class="col-md-4">
                 <h3 class="text-center">Редактирование данных</h3>
                 <ul>
@@ -173,15 +160,16 @@
                 <div class="text-center"><button type="button" class="btn btn-primary active">Перейти</button></div>
             </div>
           </div>
+       
            <!-- Вторая колонка -->
           <div class="row">
             <div class="col-md-4">
-                <p><span class="badge-pill badge-secondary">Тип файлов:{{ projects.typep}} html</span></p>
-                <p><span class="badge-pill badge-secondary">{{project.author }}Размер:</span></p>
+                <p><span class="badge-pill badge-secondary">Тип файлов:{{ projects.typep}} </span></p>
+                <p><span class="badge-pill badge-secondary">Автор проекта: {{project.author }}</span></p>
                 <!--<p><span class="badge-pill badge-secondary">Последнее обновление: 25.01.2020</span></p> -->
                 <p><span class="badge-pill badge-secondary" style="position: relative;">Описание проекта:
                 <div class="input-group">
-                <input type="text" class="form-control" id="descript" placeholder="Проект">
+                <input type="text" class="form-control" id="descript" placeholder="{{ project.description }}">
             </div></span></p>
             </div>
             <div class="col-md-4">
@@ -213,80 +201,60 @@
             <span class="glyphicon glyphicon-comment"></span>
             <h3 class="namehypo"  align="center">Comments <img src="{% static 'images/speech-bubble.svg' %}" width="30" height="30"></h3>
         </div>
+        
             <div class="panel panel-default widget">
                 <div class="panel-body">
                     <ul class="list-group">
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-1">
-                                    <img src="{% static 'images/80.png' %}" class="img-circle img-responsive" alt="" /></div>
-                                <div class="col-1">
-                                    <div>
-                                        <div class="mic-info">
-                                            By: <a href="#">Name of user1</a> on 26 Jan 2021
-                                        </div>
-                                    </div>
-                                    <div class="comment-text">
-                                        Awesome design
-                                    </div>
-                                  <!-- 
-                                  <div class="action">
-                                        <button type="button" class="btn btn-primary btn-xs" title="Edit">
-                                            <span class="glyphicon glyphicon-pencil"></span>
-                                        </button>
-                                        <button type="button" class="btn btn-danger btn-xs" title="Delete">
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                            <a class='btn btn-primary' href='#'></a><button class='btn btn-primary'><i class='glyphicon glyphicon-plus'></i></button>
-                                        </button>
-                                    </div>
-                                    -->
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-1">
-                                    <img src="{% static 'images/80.png' %}"  class="img-circle img-responsive" alt="" /></div>
-                                <div class="col-1">
-                                    <div> 
-                                        <div class="mic-info">
-                                            By: <a href="#">Name of user</a> on 26 Nov 2020
-                                        </div>
-                                    </div>
-                                    <div class="comment-text-left">ML</div>
-                                    <!--
-                                    <div class="action">
-                                        <button type="button" class="btn btn-primary btn-xs" title="Edit">
-                                            <span class="glyphicon glyphicon-pencil"></span>
-                                        </button>
-                                        <button type="button" class="btn btn-danger btn-xs" title="Delete">
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                        </button>
-                                    </div>
-                                    -->
-                                </div>
-                            </div>
-                        </li>
+                    {% if comments_list %}
+                      {% for c in comment_list %}
+                        <li> <p>
+                          <strong>{{ c.author_name }}</strong>
+                          <p>{{ c.comment_text }}</p>
+                         </p></li>
+                      {% endfor %}
+                     {% else %}
+                      Комментарии не найдены!
+                    {% endif %}
                     </ul>
                 </div>
             </div>
         </div>
-    </div>
+
     <section class="container">
         <div class="row">  
             <div class="col-md-12 mr-auto">
-         
-                <textarea class="form-control" rows="2" placeholder="Добавьте Ваш комментарий"></textarea>
+              <form action="{% url 'progmod:leave_comment' project.id %}" method="POST">
+              {% csrf_token %}
+              <input type="text" required="" placeholder="Ваше имя" name="name"><br>
+                <textarea class="form-control" rows="2" name="text" required=" placeholder="Добавьте Ваш комментарий"></textarea>
                 <div class="mar-top clearfix">
                     <button class="btn btn-sm btn-primary pull-right" type="submit"> Добавить</button>
-                    </form>
-                </div>
-            </div>
+             </form>
+           </div>
         </div>
     </section>
-
- {% endblock %}
+{% endblock %}
  <!--
  </body>
 </html> 
 -->
+  <!--
+            <div class="col-sm">
+         <table class="table table-bordsered table-hover" id="myTable">
+            <thead>
+            <tr>
+              <th>Статистика</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>Классификация</td>
+             
+            </tr>
+            <tr>
+             <td>Классификация</td>
+             </tr>
+            </tbody>
+        </table>
+        </div> 
+        --> 
