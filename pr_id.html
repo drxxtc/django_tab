@@ -8,7 +8,7 @@
          <div class="col-sm">
           <div class="text-center"><button type="button" data-toggle="modal"
           data-target="#modal-example" style="margin-right: 0%;" 
-          class="btn btn-primary active" align-text="center">Выбрать данные</button></div>
+          class="btn btn-primary active" align-text="center" >Выбрать данные</button></div>
          </div>
             <div class="col-6">
                  <h1 class="namehypo" align="center" style="margin-top: 0%;">Проект "{{project.project_name}}" <img src="{% static 'images/project-management.svg' %}" width="40"></h1>
@@ -124,10 +124,10 @@
     </div>
 </div> 
 <!--About Project -->
-    <div class="album  pull-right py-4 bg-light"> <!-- padding-top/button внутренний отступ, 5- значение отступа -->
-        <div class="container">
+    <div class="album  pull-right py-4 bg-light" > <!-- padding-top/button внутренний отступ, 5- значение отступа -->
+        <div class="container" style="position:relative;  justify-content: left;">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3" style="left:0%; float:left; justify-content: left;">
                 <p></p><span class="badge-pill badge-secondary">ID: {{ project.id }}</span></p>
                 <p><span class="badge-pill badge-secondary">Статус: {{ project.status }}</span></p>
                 <p><span class="badge-pill badge-secondary">Дата создания: {{ project.created_at }} </span></p>
@@ -135,83 +135,85 @@
                       <p><a class="{{ file.css_class }}"</a>TypeType</p>
                 {% endfor %}
                 <p><span class="badge-pill badge-secondary">Путь: {{ project.file }}</span></p>
-            </div>
-          
-        
-               <div class="col-md-4">
-                <h3 class="text-center">Статистика</h3>
-                <ul>
-             
-                    <li><a> Основные статистические данные</a></li>
-                    <li><a>Классификация</a></li>
-                    <li><a>Категоризация</a></li>
-                </ul>
-                <div class="text-center"><button type="button" class="btn btn-primary active" align-text="center" data-toggle="modal"
-          data-target="#modal-example1">Перейти</button></div>
-          </div>
-            
-            <div class="col-md-4">
-                <h3 class="text-center">Редактирование данных</h3>
-                <ul>
-                    <li><a>Изменение стурктуры</li>
-                    <li><a>Сортировка</a></li>
-                    <li><a style="color:#fff;"> _ </a></li> 
-                </ul>
-                <div class="text-center"><button type="button" class="btn btn-primary active">Перейти</button></div>
-            </div>
+            </div> 
+                <div class="col-md-3">   
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                <div class="text-center"><button type="button" class="btn btn-primary" align-text="center"><img src="{% static 'images/research.png' %}"> Статистика</button></div>
+            </label></div></div>
+            <div class="col-md-3">
+            <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                <div class="text-center"><button type="button" class="btn btn-primary"><img src="{% static 'images/data-classification.png' %}">Классификация</button></div>
+           </label></div> </div>
+          <div class="col-md-3">
+          <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+            <div class="text-center"><button type="button" class="btn btn-primary"><img src="{% static 'images/predictive.png' %}">Конструрирование</button></div>
+        </label></div></div>
           </div>
        
            <!-- Вторая колонка -->
           <div class="row">
-            <div class="col-md-4">
+          <!-- 1-->
+          
+            <div class="col-md-3">
                 <p><span class="badge-pill badge-secondary">Тип файлов:{{ projects.typep}} </span></p>
                 <p><span class="badge-pill badge-secondary">Автор проекта: {{project.author }}</span></p>
-                <!--<p><span class="badge-pill badge-secondary">Последнее обновление: 25.01.2020</span></p> -->
                 <p><span class="badge-pill badge-secondary" style="position: relative;">Описание проекта:
                 <div class="input-group">
-                <input type="text" class="form-control" id="descript" placeholder="{{ project.description }}">
-            </div></span></p>
+                <input type="text" class="form-control" id="descript" placeholder="{{ project.description }}"></div>
+            </span></p>
             </div>
-            <div class="col-md-4">
-                <h3 class="text-center">Отчет</h3>
-                <ul>
-                    <li><a >Журнал действий</a></li>
-                    <li><a>Визуализация</a></li>
-                    <li><a>Отчет по проекту</a></li>
-                </ul>
-                <div class="text-center"><button type="button" class="btn btn-primary active" data-toggle="modal"
-          data-target="#modal-example2">Перейти</button></div>
-            </div>
-                
-                
-            <div class="col-md-4">
-               <h3 class="text-center">Прогнозирование</h3>
-                <ul>
-                    <li><a>Предсказание значения элементов</a></li>
-                    <li><a  style="color:#fff;">_</a></li>
-                    <li><a style="color:#fff;">_</a></li>
-                </ul>
-                <div class="text-center"><button type="button" class="btn btn-primary active">Перейти</button></div>
-            </div>
-          </div>
+            <!-- 2 -->
+            <div class="col-md-3">  
+                   <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                <div class="text-center"><button type="button" class="btn btn-primary" align-text="center"><img src="{% static 'images/pencil.png' %}"> Редактирование</button></div>
+            </label></div></div>
+            <!-- 3 -->
+            <div class="col-md-3">
+            <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                <div class="text-center"><button type="button" class="btn btn-primary"><img src="{% static 'images/predictive-models.png' %}"> Кластеризация</button></div>
+            </label></div></div>
+            <!-- 4 -->
+          <div class="col-md-3">
+          <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+            <div class="text-center"><button type="button" class="btn btn-primary"><img src="{% static 'images/prediction.png' %}"> Прогнозирование</button></div>
+        </label></div></div>
         </div>
+        <div class="row"  style="justify-content: flex-end; ">
+        <div class="col-md-3">
+        <div class="text-center"><button type="button" class="btn btn-primary" style="float:right; position:absolute; right:0%;">Запустить выбранные пункты</button></div>
+           </div> 
+           </div>
     </div>
+    </div>
+ 
     <div class="container">
         <div class="panel-heading">
             <span class="glyphicon glyphicon-comment"></span>
-            <h3 class="namehypo"  align="center">Comments <img src="{% static 'images/speech-bubble.svg' %}" width="30" height="30"></h3>
+            <h3 class="namehypo"  align="center" style="margin-top: 2%;">Comments <img src="{% static 'images/speech-bubble.svg' %}" width="30" height="30"></h3>
         </div>
         
             <div class="panel panel-default widget">
                 <div class="panel-body">
-                    <ul class="list-group">
-                    {% if comments_list %}
+                    <ul class="list-group" style="list-style-type: none;">
+                    {% if comment_list %}
                       {% for c in comment_list %}
                         <li> <p>
-                          <strong>{{ c.author_name }}</strong>
+                          <strong><a></a>{{ c.author_name }}</strong>
                           <p>{{ c.comment_text }}</p>
                          </p></li>
-                      {% endfor %}
+                     {% endfor %}
                      {% else %}
                       Комментарии не найдены!
                     {% endif %}
@@ -226,7 +228,7 @@
               <form action="{% url 'progmod:leave_comment' project.id %}" method="POST">
               {% csrf_token %}
               <input type="text" required="" placeholder="Ваше имя" name="name"><br>
-                <textarea class="form-control" rows="2" name="text" required=" placeholder="Добавьте Ваш комментарий"></textarea>
+                <textarea class="form-control" rows="2" name="text" required="" placeholder="Добавьте Ваш комментарий"></textarea>
                 <div class="mar-top clearfix">
                     <button class="btn btn-sm btn-primary pull-right" type="submit"> Добавить</button>
              </form>
