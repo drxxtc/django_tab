@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 from django.urls import path
 #from django.contrib.auth import views as views_auth
 from .views import main, getList, ListView, project_list, proj, detail, leave_comment#, FilterView list, project_list
