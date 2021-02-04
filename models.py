@@ -1,6 +1,9 @@
 from django.db import models
 from django.utils import timezone
 import django_filters
+from django.core.files.storage import FileSystemStorage
+from django.conf import settings
+import os
 
 class Project(models.Model): #Мои проекты
     project_name = models.CharField(max_length=60)
@@ -9,10 +12,20 @@ class Project(models.Model): #Мои проекты
     author= models.CharField(max_length=250, default='Author')
     tema= models.CharField(max_length=250, default='Theme')
     typep= models.CharField(max_length=50, default='Type')
+    file=models.FileField(storage=FileSystemStorage(location=settings.MEDIA_ROOT), upload_to='logos', default='settings.MEDIA_ROOT/logos')
+    description=models.CharField(max_length=250, default='Description')
     def publish(self):
         self.published_date = timezone.now()
         self.save()
-        
+    def extension(self):
+        project_name, typep= os.path.splitext(self.file.project_name)
+    def css_class(self):
+        project_name, typep= os.path.splitext(self.file.project_name)
+        if typep=='xlsx':
+            return 'xlsx'
+        if typep=='csv':
+            return 'csv'
+        return 'other'
     def __str__(self):
         return self.project_name
     def state(self):
@@ -45,6 +58,11 @@ class Comment(models.Model):
     class Meta:
         verbose_name='Комментарий к проекту'
         verbose_name_plural='Комментарии к проекту'
+        
+class Task(models.Model):
+    project=models.ForeignKey(Project, on_delete= models.CASCADE)
+    name_task=models.CharField('Название задачи', max_length=25)
+    def __str__(self):
+        return self.name_task
     
         
-
