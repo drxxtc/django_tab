@@ -3,85 +3,12 @@
 {% load static %}
 {% block title %}Мои проекты{% endblock %}
 {% block content %} 
-<div class="container">
+<div class="container justify-content-start">
 <!-- Вызов модального окна с проектом -->
-<div class="col-sm">
-<button type="button" class="btn btn-primary" data-toggle="modal"
-  data-target="#modal-example">Создать новый</button>
-</div> 
-      <!--Выпадающий список 
-   <div class="dropdown">
-   <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink"
-   data-toggle="ddropdown" aria-haspopup="true" aria-expanded="false">
-   <button  class="btn btn-secondary dropdown-toggle" type="button"
-     id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" 
-     aria-expanded="false" >Выпадающий список<span class="caret"></span>
-   </button>
-   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-     <li><a href="#"> ML</a></li>
-     <li><a class="dropdown-item"> PM</a></li>
-   </ul>
-   </div> 
-</div>-->
-
-<!-- Модальное окно 1 - создание нового проекта -->
-<div class="modal fade" id="modal-example" tabindex="-1"
-     role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <!-- заголовок -->
-            <div class="modal-header">
-                <h3 class="modal-title">СОЗДАНИЕ НОВОГО ПРОЕКТА</h3>
-                <button type="button" 
-                  data-dismiss="modal" ><img src="{% static 'images/rem.png' %}">
-                </button>
-            </div>
-            <!-- содержимое -->
-            <div class="modal-body">
-              <div class="form-group">
-              <form method="POST" class="post-form">
-              {% csrf_token %}
-              {{ projectform }}
-                <button type="submit" class="btn btn-primary" >Сохранить<!--<img src="{% static 'images/save.png' %}" style="margin-left: 5% ;">--></button>
-               </form>
-              </div>
-               <div class="form-file">
-                <input type="file" name="myfile" class="form-file-input" id="customFile">
-                <label class="form-file-label" for="customFile"></label>
-               </div>  
-            </div>
-            <!-- подвал -->
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div> 
-<!-- Модальное окно 2 - Доступ к проектам --> 
-<div class="modal fade" id="modal-example2" tabindex="-1"
-     role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <!-- заголовок -->
-            <div class="modal-header">
-                <h3 class="modal-title">ДОСТУП К ПРОЕКТУ</h3>
-                <button type="button" 
-                  data-dismiss="modal" ><img src="{% static 'images/rem.png' %}">
-                </button>
-            </div>
-            <!-- содержимое -->
-            <div class="modal-body">
-              <div class="form-group">
-              <form method="POST" class="post-form">
-              {% csrf_token %}
-              <a>Доступ предоставлен:</a>
-              <button type="submit"  class="btn btn-primary"
-                  data-dismiss="modal" >ок</button>
-              </form>
-              </div>
-            </div>
-        </div>
-    </div>
-</div> 
+    <div class="col-md">
+         <button type="button" class="btn btn-primary" data-toggle="modal"
+         data-target="#modal-example" style="margin-top: 5%;" >Создать новый</button>
+    </div> 
 
 <!-- Поисковая строка -->
 <div class="container search-table">
@@ -94,13 +21,16 @@
             <div class="col">
               <div class=" dates">
                 <div class="form-row ml-auto" style="padding-top:10px;">
+               
                 <div class="col">
-                 <a>F:</a>
-                <input type="text" data-date-format="dd/mm/yyyy" id="datepicker" >
+                 <a style="color:white;">От:</a>
+                <input type="text" placeholder="date" data-date-format="dd/mm/yyyy" id="datepicker" >
                   </div>
                   <div class="col">
-                  <a>T:</a>
-                    <input type="text" data-date-format="dd/mm/yyyy" id="datepicker1">
+                  <a style="color:white;">До:</a>
+                    <input type="text" data-date-format="dd/mm/yyyy" placeholder="date" id="datepicker1">
+                  </div>
+                  <div class="col-7">
                   </div>
                 </div>
               </div>
@@ -110,11 +40,11 @@
      <div class="form-check">    
          <div class="col">
             <input type="checkbox" class="form-check-input" id="check1">
-            <label class="form-check-label" for="check1">Ready</label>
+            <label class="form-check-label" for="check1" style="color:white;">Ready</label>
          </div>
          <div class="col">
             <input type="checkbox" class="form-check-input" id="check2">
-            <label class="form-check-label" for="check2">In progress</label>
+            <label class="form-check-label" for="check2" style="color:white;">In progress</label>
          </div>
        </div>
      </div>
@@ -194,6 +124,61 @@
  
  </div>
  <script src="{% static 'js/main.js' %}"></script> 
+ <!-- Модальное окно 1 - создание нового проекта -->
+<div class="modal fade" id="modal-example" tabindex="-1"
+     role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- заголовок -->
+            <div class="modal-header">
+                <h3 class="modal-title">СОЗДАНИЕ НОВОГО ПРОЕКТА</h3>
+                <button type="button" 
+                  data-dismiss="modal" ><img src="{% static 'images/rem.png' %}">
+                </button>
+            </div>
+            <!-- содержимое -->
+            <div class="modal-body">
+              <div class="form-group">
+              <form method="POST" class="post-form">
+              {% csrf_token %}
+              {{ projectform }}
+                <button type="submit" class="btn btn-primary" >Сохранить<!--<img src="{% static 'images/save.png' %}" style="margin-left: 5% ;">--></button>
+               </form>
+              </div>
+               
+            </div>
+            <!-- подвал -->
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div> 
+<!-- Модальное окно 2 - Доступ к проектам --> 
+<div class="modal fade" id="modal-example2" tabindex="-1"
+     role="dialog-center" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- заголовок -->
+            <div class="modal-header">
+                <h3 class="modal-title">ДОСТУП К ПРОЕКТУ</h3>
+                <button type="button" 
+                  data-dismiss="modal" ><img src="{% static 'images/rem.png' %}">
+                </button>
+            </div>
+            <!-- содержимое -->
+            <div class="modal-body">
+              <div class="form-group">
+              <form method="POST" class="post-form">
+              {% csrf_token %}
+              <a>Доступ предоставлен:</a>
+              <button type="submit"  class="btn btn-primary"
+                  data-dismiss="modal" >ок</button>
+              </form>
+              </div>
+            </div>
+        </div>
+    </div>
+</div> 
   {% endblock %}
 
 <!--
