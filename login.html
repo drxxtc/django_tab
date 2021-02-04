@@ -1,0 +1,75 @@
+{% load static %}
+
+<!--{% load crispy_forms_tags %} -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com"> 
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Roboto:wght@100&display=swap" rel="stylesheet">
+    
+    <meta charset="utf-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Авторизация{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+
+<body>
+{% block content %}
+{% if user.is_authenticated %}
+ <div class="form-group"><button class="btn btn-primary btn-block" type="submit">
+                     <a class="click-me" href="{% static 'main.html' %}" style="color:#ffffff;">Войти на этом аккаунте</a></div>
+{% else %}
+    <div class="login-dark">
+            <div class="logo mb-3">
+                <div class="col-md-12 text-center">
+                   
+                </div>
+           </div>
+            <h2 class="sr-only">Login</h2>
+            <form method="POST" class="lform" action="main.html">
+                 {% csrf_token %}
+                 <imput type="hidden" name="next" 
+                 value="{{ next }}"
+                 <h1>АВТОРИЗАЦИЯ</h1>
+                 <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
+                 <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Логин"></div>
+                 <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Пароль"></div>
+                 <div class="form-group"><button class="btn btn-primary btn-block" type="submit">
+                     <a class="click-me" href="{% url 'progmod:main' %}" style="color:#ffffff;">Войти</a>
+                     <img src={% static 'images/enter.png' %} style="margin-left: 5% ;"></button></div>
+                     <a class="forgot" href="#">Забыли пароль?</a></form>
+            </form> 
+        
+    
+    <script src="{% static 'js/libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/libs/bootstrap/js/bootstrap.min.js' %}"></script>
+     <div id="app">
+        <v-app class="container">
+          <v-card>
+            <v-card-title>
+              <v-text-field
+                v-model="search"
+                label="Search"
+                single-line
+                hide-details
+              ></v-text-field>
+            </v-card-title>
+            <v-data-table
+                  :headers="headers"
+                  :items="items"
+                  :search="search"
+                  :custom-filter="customSearch"
+              >
+              </v-data-table>
+          </v-card>
+        </v-app>
+      </div> 
+{% endif %}
+{% endblock %}  
+</body>
+
+</html>
