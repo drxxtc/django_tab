@@ -3,21 +3,25 @@
 {% block title %}Проект{% endblock %}
 {% block content %} 
 <link rel="stylesheet" type="text/css" href="{% static 'css/pr_id.css' %}">
-    <div class="container-fluid">
-        <div class="row">   
-         <div class="col-sm">
+
+
+<div class="container-fluid">
+        <div class="row ">  
+         <div class="col-md justify-content-start bg-light">
           <div class="text-center"><button type="button" data-toggle="modal"
-          data-target="#modal-example" style="margin-right: 0%;" 
-          class="btn btn-primary active" align-text="center" >Выбрать данные</button></div>
-         </div>
-            <div class="col-6">
-                 <h1 class="namehypo" align="center" style="margin-top: 0%;">Проект "{{project.project_name}}" <img src="{% static 'images/project-management.svg' %}" width="40"></h1>
+          data-target="#modal-example" 
+          class="btn btn-primary" align-text="center" >Выбрать данные</button>
+          </div>
+         </div> 
+            <div class="col-9">
+                 <h1 class="namehypo" align="center" style="margin-top: 0%;">Проект "{{project.project_name}}". Task1 <img src="{% static 'images/project-management.svg' %}" width="40"></h1>
             </div>
-            <div class="col-sm">
+            <div class="col-md justify-content-end bg-light">
+             {% include "pagination.html" %}
             </div>
         </div>
     </div>
- <div class="modal fade" id="modal-example" tabindex="-1"
+<div class="modal fade" id="modal-example" tabindex="-1"
      role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -28,29 +32,26 @@
                   data-dismiss="modal" ><img src="{% static 'images/rem.png' %}">
                 </button>
             </div>
-            <!-- содержимое -->
+            <!-- содержимое --> 
+            <form method="post" enctype="multipart/form-data">
+             {% csrf_token %}
             <div class="modal-body">
             <div class="form-group">
-              <form method="POST" class="post-form">
-              {% csrf_token %}
-              <!-- {{ sliceform }} -->
-              <div class="row">
-                <p><a>Укажите имя листа:</a></p>
-                </div>
-               </form>
-              </div>
-              <form method="post" enctype="multipart/form-data">
-               {% csrf_token %}
                 <input type="file" name="myfile" class="form-file-input" id="customFile">
                 <label class="form-file-label" for="customFile"></label>
-             <button type="submit" class="btn btn-primary" >Сохранить</button>    
-              </form>
-      
-             
-            </div>    
+                </div>
+            </div>  
+              <div class="row justify-content-center">
+            <div class="col justify-content-center">
+            <div class="modal-footer">
+          
+            <button type="submit" class="btn btn-primary" >Сохранить</button>  
+            </div></div></div></form>
         </div>
     </div>
-</div> 
+</div>
+</div>
+
 <!--Модальное окно Кластеризация-->
 <div class="modal fade" id="modal-example1" tabindex="-1"
      role="dialog" aria-hidden="true">
@@ -124,10 +125,10 @@
     </div>
 </div> 
 <!--About Project -->
-    <div class="album  pull-right py-4 bg-light" > <!-- padding-top/button внутренний отступ, 5- значение отступа -->
-        <div class="container" style="position:relative;  justify-content: left;">
-          <div class="row">
-            <div class="col-md-3" style="left:0%; float:left; justify-content: left;">
+ <div class="album  pull-right py-4 bg-light" > <!-- padding-top/button внутренний отступ, 5- значение отступа -->
+        <div class="container-fluid" style="position:relative;">
+          <div class="row justify-content-start">
+            <div class="col-md-4" style="left:0%; float:left; justify-content: left;">
                 <p></p><span class="badge-pill badge-secondary">ID: {{ project.id }}</span></p>
                 <p><span class="badge-pill badge-secondary">Статус: {{ project.status }}</span></p>
                 <p><span class="badge-pill badge-secondary">Дата создания: {{ project.created_at }} </span></p>
@@ -136,67 +137,104 @@
                 {% endfor %}
                 <p><span class="badge-pill badge-secondary">Путь: {{ project.file }}</span></p>
             </div> 
-                <div class="col-md-3">   
+                <div class="col-md">   
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
-                <div class="text-center"><button type="button" class="btn btn-primary" align-text="center"><img src="{% static 'images/research.png' %}"> Статистика</button></div>
-            </label></div></div>
-            <div class="col-md-3">
+                    <label class="form-check-label" for="defaultCheck1"></div>
+                <div class="text-center"><button type="button" data-toggle="modal"
+          data-target="#modal-Statyc" class="btn btn-primary" align-text="center"><img src="{% static 'images/research.png' %}"> Статистика</button></div>
+            </label></div>
+            <div class="col-md"></div>
+            <div class="col-md">
             <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
-                <div class="text-center"><button type="button" class="btn btn-primary"><img src="{% static 'images/data-classification.png' %}">Классификация</button></div>
-           </label></div> </div>
-          <div class="col-md-3">
+                    <label class="form-check-label" for="defaultCheck1"></div>
+                <div class="text-center"><button type="button" data-toggle="modal"
+          data-target="#modal-classification" class="btn btn-primary"><img src="{% static 'images/data-classification.png' %}"> 
+                Классификация</button></div>
+           </label></div> 
+           <div class="col-md"></div>
+          <div class="col-md">
           <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
-            <div class="text-center"><button type="button" class="btn btn-primary"><img src="{% static 'images/predictive.png' %}">Конструрирование</button></div>
-        </label></div></div>
-          </div>
-       
+                    <label class="form-check-label" for="defaultCheck1"></div>
+            <div class="text-center"><button type="button" data-toggle="modal"
+          data-target="#modal-predictive" class="btn btn-primary disabled"><img src="{% static 'images/predictive.png' %}">Конструирование</button></div>
+        </label></div>
+        <div class="col" style="transform: rotate(90deg);">
+            <div class="text-center" ><button type="button"  class="btn btn-primary" style="font-size: 28px;">Журнал</button>
+        </div></div>
+    </div>       
            <!-- Вторая колонка -->
           <div class="row">
           <!-- 1-->
           
-            <div class="col-md-3">
-                <p><span class="badge-pill badge-secondary">Тип файлов:{{ projects.typep}} </span></p>
+            <div class="col-md-4" >
+                <p ><span class="badge-pill badge-secondary">Тип файлов:{{ projects.typep}} </span></p>
                 <p><span class="badge-pill badge-secondary">Автор проекта: {{project.author }}</span></p>
                 <p><span class="badge-pill badge-secondary" style="position: relative;">Описание проекта:
                 <div class="input-group">
-                <input type="text" class="form-control" id="descript" placeholder="{{ project.description }}"></div>
+                <input type="text" class="form-control" id="descript" style="height:30px;"placeholder="{{ project.description }}"></div>
             </span></p>
             </div>
             <!-- 2 -->
-            <div class="col-md-3">  
+            <div class="col-md">  
                    <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
-                <div class="text-center"><button type="button" class="btn btn-primary" align-text="center"><img src="{% static 'images/pencil.png' %}"> Редактирование</button></div>
-            </label></div></div>
+                    <label class="form-check-label" for="defaultCheck1"></div>
+                <div class="text-center"><button type="button" href="" class="btn btn-primary" align-text="center"><img src="{% static 'images/pencil.png' %}"> Редактирование</button></div>
+            </label></div>
+            <div class="col-md"></div>
             <!-- 3 -->
-            <div class="col-md-3">
+            <div class="col-md">
             <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
-                <div class="text-center"><button type="button" class="btn btn-primary"><img src="{% static 'images/predictive-models.png' %}"> Кластеризация</button></div>
-            </label></div></div>
+                    <label class="form-check-label" for="defaultCheck1"></div>
+                <div class="text-center"><button type="button" data-toggle="modal"
+          data-target="#modal-claster" class="btn btn-primary"><img src="{% static 'images/predictive-models.png' %}"> Кластеризация</button></div>
+            </label></div>
+            <div class="col-md"></div>
             <!-- 4 -->
-          <div class="col-md-3">
+          <div class="col-md">
           <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
-            <div class="text-center"><button type="button" class="btn btn-primary"><img src="{% static 'images/prediction.png' %}"> Прогнозирование</button></div>
-        </label></div></div>
+                    <label class="form-check-label" for="defaultCheck1"></div>
+            <div class="text-center"><button type="button" data-toggle="modal"
+          data-target="#modal-predictive" class="btn btn-primary disabled"><img src="{% static 'images/prediction.png' %}"> Прогнозирование</button></div>
+        </label></div>
+         <div class="col justify-content-center" style="transform: rotate(90deg);">
+            <div class="text-center" ><button type="button"  class="btn btn-primary" style="font-size: 28px;">Отчет </button>
         </div>
-        <div class="row"  style="justify-content: flex-end; ">
-        <div class="col-md-3">
-        <div class="text-center"><button type="button" class="btn btn-primary" style="float:right; position:absolute; right:0%;">Запустить выбранные пункты</button></div>
+        </div>
+   </div>        
+ </div>
+</div>
+
+
+    <div class="row">
+         <div class="col-md-6">
+         </div>
+         <div class="col justify-content-end">
+          <form method="POST" class="post-form">
+         {% csrf_token %}
+                <button type="submit" class="btn-outline-secondary"  title="Добавить задачу"  data-toggle="modal"
+          data-target="#modal-create"  align-text="center" style="border:none; font-size: 20px;"><img src="{% static 'images/button.png' %}"> Создать</button>
+        </form>
+        </div>
+        <div class="col justify-content-end">
+                <button type="submit" class="btn-outline-secondary"  title="Удалить задачу"  data-toggle="modal"
+          data-target="#modal-example3"  align-text="center" style="border:none; font-size: 20px;"><img src="{% static 'images/delete.png' %}"> Удалить</button>
+        </div>
+        <div class="col justify-content-center">
+                <button type="button" class="btn-outline-secondary"  title="Черновик" align-text="center" style="border:none; font-size: 20px;"><img src="{% static 'images/notes.png' %}">Черновик</button>
+        </div>
+        <div class="col justify-content-start">
+        <button type="button" class="btn-outline-secondary " title="Запустить выбранные категории" style="border:none; font-size: 20px;"><img src="{% static 'images/shuttle.png' %}">Запустить</button>
            </div> 
-           </div>
-    </div>
-    </div>
+         <div class="col justify-content-end">
+         </div>
+          </div>
+</div>   
  
     <div class="container">
         <div class="panel-heading">
@@ -207,16 +245,17 @@
             <div class="panel panel-default widget">
                 <div class="panel-body">
                     <ul class="list-group" style="list-style-type: none;">
+                    
                     {% if comment_list %}
                       {% for c in comment_list %}
-                        <li> <p>
-                          <strong><a></a>{{ c.author_name }}</strong>
-                          <p>{{ c.comment_text }}</p>
-                         </p></li>
+                        <li> <p><div class="border bg-light">
+                          <strong><a></a>  {{ c.author_name }}</strong>
+                          <p>  {{ c.comment_text }}</p>
+                         </p>     </div></li>
                      {% endfor %}
                      {% else %}
                       Комментарии не найдены!
-                    {% endif %}
+                    {% endif %}              
                     </ul>
                 </div>
             </div>
@@ -224,7 +263,7 @@
 
     <section class="container">
         <div class="row">  
-            <div class="col-md-12 mr-auto">
+            <div class="col-md-11 mr-auto">
               <form action="{% url 'progmod:leave_comment' project.id %}" method="POST">
               {% csrf_token %}
               <input type="text" required="" placeholder="Ваше имя" name="name"><br>
@@ -235,28 +274,126 @@
            </div>
         </div>
     </section>
+    <!-- Модальное окно Статистики-->
+  <div class="modal fade" id="modal-Statyc" tabindex="-1"
+     role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- заголовок -->
+            <div class="modal-header">
+                <h3 class="modal-title">СТАТИСТИКА ДАННЫХ</h3>
+                
+                <button type="button" 
+                  data-dismiss="modal" ><img src="{% static 'images/rem.png' %}">
+                </button>
+            </div>
+            <!-- содержимое --> 
+            <form method="post" enctype="multipart/form-data">
+             {% csrf_token %}
+            <div class="modal-body">
+                <div class="form-check">
+        <div class="col">Выберите задачи для выполнения:
+        </div>
+         <div class="col">
+            <input type="checkbox" class="form-check-input" id="check1">
+            <label class="form-check-label" for="check1">Text Mining</label>
+         </div>
+         <div class="col">
+            <input type="checkbox" class="form-check-input" id="check2">
+            <label class="form-check-label" for="check2">Proccess Mining</label>
+         </div>
+         <div class="col">
+            <input type="checkbox" class="form-check-input" id="check3">
+            <label class="form-check-label" for="check2">Xml</label>
+         </div>
+         <div class="col">
+            <input type="checkbox" class="form-check-input" id="check4">
+            <label class="form-check-label" for="check2">Анализ плоских таблиц</label>
+         </div>
+       </div>
+            </div>  
+              <div class="row justify-content-center">
+            <div class="col justify-content-center">
+            <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" >Сохранить</button>  
+            </div></div></div></form>
+        </div>
+    </div>
+</div> 
+</div>
+    <!-- Модальное окно Классификация -->
+  <div class="modal fade" id="modal-classification" tabindex="-1"
+     role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- заголовок -->
+            <div class="modal-header">
+                <h3 class="modal-title">КЛАССИФИКАЦИЯ. XML</h3>
+                <button type="button" 
+                  data-dismiss="modal" ><img src="{% static 'images/rem.png' %}">
+                </button>
+            </div>
+            <!-- содержимое --> 
+            <form method="post" enctype="multipart/form-data">
+             {% csrf_token %}
+            <div class="modal-body">
+                <div class="form-check">
+        <div class="col">Выберите задачи для выполнения:
+        </div>
+         <div class="col">
+            <input type="checkbox" class="form-check-input" id="check3">
+            <label class="form-check-label" for="check2">Xml</label>
+         </div>
+         <div class="col">Введите имя листа:<input type="text" size="20"></div>
+          <div class="col">Введите имя столба:<input type="text" size="20"></div>
+           <div class="col">Введите маркер:<input type="text" size="20"></div>
+       </div>
+            </div>  
+              <div class="row justify-content-center">
+            <div class="col justify-content-center">
+            <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" >Сохранить</button>  
+            </div></div></div></form>
+        </div>
+    </div>
+</div> 
+</div>
+   <!-- Модальное окно Кластеризация -->
+  <div class="modal fade" id="modal-claster" tabindex="-1"
+     role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- заголовок -->
+            <div class="modal-header">
+                <h3 class="modal-title">КЛАСТЕРИЗАЦИЯ. XML</h3>
+                <button type="button" 
+                  data-dismiss="modal" ><img src="{% static 'images/rem.png' %}">
+                </button>
+            </div>
+            <!-- содержимое --> 
+            <form method="post" enctype="multipart/form-data">
+             {% csrf_token %}
+            <div class="modal-body">
+                <div class="form-check">
+        <div class="col">Выберите задачи для выполнения:
+        </div>
+         <div class="col">
+            <input type="checkbox" class="form-check-input" id="check3">
+            <label class="form-check-label" for="check2">Xml</label>
+         </div>
+         <div class="col">Введите имя листа:<input type="text" size="20"></div>
+          <div class="col">Введите количество кластеров:<input type="text" size="20"></div>
+           <div class="col">Введите имя столбца(целевой переменной):<input type="text" size="15"></div>
+       </div>
+            </div>  
+              <div class="row justify-content-center">
+            <div class="col justify-content-center">
+            <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" >Сохранить</button>  
+            </div></div></div></form>
+        </div>
+    </div>
+</div> 
+</div>
+     
 {% endblock %}
- <!--
- </body>
-</html> 
--->
-  <!--
-            <div class="col-sm">
-         <table class="table table-bordsered table-hover" id="myTable">
-            <thead>
-            <tr>
-              <th>Статистика</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>Классификация</td>
-             
-            </tr>
-            <tr>
-             <td>Классификация</td>
-             </tr>
-            </tbody>
-        </table>
-        </div> 
-        --> 
