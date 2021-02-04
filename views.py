@@ -77,6 +77,27 @@ def leave_comment(request, project_id):
     p.comment_set.create(author_name = request.POST['name'], comment_text=request.POST['text'])
     return HttpResponseRedirect(reverse('progmod:detail', args=(p.id, )) )
 
+#Paginator in Project
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger    
+def post_list(request):  
+    object_list = models.Task.published.all()  
+    paginator = Paginator(object_list, 1)  
+    page = request.GET.get('page')  
+    try:  
+        posts = paginator.page(page)  
+    except PageNotAnInteger:  
+        # Если страница не является целым числом, поставим первую страницу  
+        posts = paginator.page(1)  
+    except EmptyPage:  
+        # Если страница больше максимальной, доставить последнюю страницу результатов  
+        posts = paginator.page(paginator.num_pages)  
+    return render(request,  
+	          'pr_id.html',  
+		  {'page': page,  
+		   'posts': posts})
+#создание новой задачи
+def create_task(request):
+    pass
 '''from django_filters.views import FilterView
 from .filters import ProjFilt
 
