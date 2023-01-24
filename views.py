@@ -100,7 +100,6 @@ def create_task(request):
     pass
 '''from django_filters.views import FilterView
 from .filters import ProjFilt
-
 class FilterView(SingleTableMixin, FilterView):
     model = models.Project
     table_class = ProjTab
